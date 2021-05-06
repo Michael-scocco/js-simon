@@ -49,25 +49,28 @@ var breaked = setInterval(function(){
         var score = 0;
         var match;
         while (i < 5) {
+
             var insertNumber = Number(prompt('inserisci numeri'));
 
             if (arrayUser.includes(insertNumber) || insertNumber <= 1 || insertNumber > 100 || isNaN(insertNumber)) {
                 console.log('hai sbagliato ad inserire il numero');
 
-            }else if (arrayAlert === arrayUser) {
-                match = `hai perso con il punteggio di ${score}`;
-                console.log(match);
-
             }else if (!arrayUser.includes(insertNumber)) {
                 arrayUser.push(insertNumber);
                 score++;
+                i++;
                 console.log(arrayUser, ' punteggio di ' + score);
-
-                    if (arrayAlert !== arrayUser) {
-                        match = `hai vinto con il punteggio di ${score}`;
-                        console.log(match);
-                    }
+            
+            }else if (arrayAlert === arrayUser) {
+                match = `hai perso con il punteggio di ${score}`;
+                score--;
+                console.log(match);
             }
+
+        }
+        if (arrayAlert !== arrayUser) {
+            match = `hai vinto con il punteggio di ${score}`;
+            console.log(match);
         }
 
     }else {//altrimenti continua a decrementare
