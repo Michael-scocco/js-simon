@@ -38,11 +38,11 @@ alert("questo è il numero casuale " + arrayAlert);
 var timer = 5;
 // 3.2 dare una varibile alla funzione setInterval, per far in modo che si blocchi
 // con se stessa, come se fosse break
-var break = setInterval(function(){
+var breaked = setInterval(function(){
 
 // se, timer è minore o uguale a zero, blocca il ciclo
     if (timer <= 0) {
-        clearInterval(break);
+        clearInterval(breaked);
 
         var arrayUser = [];
         var i = 0;
@@ -69,7 +69,6 @@ var break = setInterval(function(){
                     }
             }
         }
-
 
     }else {//altrimenti continua a decrementare
         timer--;
