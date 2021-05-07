@@ -32,7 +32,6 @@ for (var i = 0; i < 5; i++) {
 // 2.2 far apparire un allert con tutti i numeri presenti
 alert("questo è il numero casuale " + arrayAlert);
 
-
 // 3. Da li parte un timer di 30 secondi.
 // 3.1 crare una variabile tempo
 var timer = 5;
@@ -44,38 +43,58 @@ var breaked = setInterval(function(){
     if (timer <= 0) {
         clearInterval(breaked);
 
+        var arrayUserError = [];
         var arrayUser = [];
         var i = 0;
         var score = 0;
-        var match;
+        var present = document.getElementById('non-presente');
+        var match = document.getElementById('risultato-partita');
+        var messageEr = document.getElementById('errore');
+        var messageAtt = document.getElementById('punteggio-attuale');
+        var errorTotal = 0;
+
         while (i < 5) {
 
             var insertNumber = Number(prompt('inserisci numeri'));
 
-            if (arrayUser.includes(insertNumber) || insertNumber <= 1 || insertNumber > 100 || isNaN(insertNumber)) {
+            if (arrayUser.includes(insertNumber) || insertNumber < 1 || insertNumber > 100 || isNaN(insertNumber)) {
+                messageEr.innerHTML = 'hai sbagliato ad inserire il numero per ' + errorTotal + ' volte';
+                errorTotal++
                 console.log('hai sbagliato ad inserire il numero');
 
-            }else if (!arrayUser.includes(insertNumber)) {
+            }else if (arrayAlert.includes(insertNumber)) {
                 arrayUser.push(insertNumber);
                 score++;
                 i++;
+                messageAtt.innerHTML = ' punteggio di ' + score + ' i numeri inseriti giusti sono ' + arrayUser;
                 console.log(arrayUser, ' punteggio di ' + score);
-            
-            }else if (arrayAlert === arrayUser) {
-                match = `hai perso con il punteggio di ${score}`;
-                score--;
-                console.log(match);
+
+            }else if (arrayUserError.includes(insertNumber)) {
+                messageEr.innerHTML = 'hai sbagliato ad inserire il numero per ' + errorTotal + ' volte';
+                errorTotal++;
+                console.log('hai già scritto questo numero');
+
+            }else if (!arrayAlert.includes(insertNumber)) {
+                arrayUserError.push(insertNumber);
+                i++;
+                // present.innerHTML = 'questo numero non era presente ' + insertNumber;
+                console.log('questo numero non era presente ' + arrayUserError );
             }
 
         }
-        if (arrayAlert !== arrayUser) {
-            match = `hai vinto con il punteggio di ${score}`;
+        if (arrayUser.lenght == !arrayAlert.lenght) {
+            match.innerHTML = `hai perso con il punteggio di ${score}`;
             console.log(match);
+        }
+        if(arrayUser.lenght === arrayAlert.lenght){
+            match.innerHTML = `hai vinto con il punteggio di ${score}`;
+            console.log(match);
+
         }
 
     }else {//altrimenti continua a decrementare
         timer--;
-    }
-    document.getElementById('tempo').innerHTML = timer;
+
+    }//if
 
 }, 1000);// i millesimi sono intesi ke vengono moltiplicati alla varibile timer
